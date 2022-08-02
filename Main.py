@@ -78,3 +78,41 @@ class Evaluate:
 
 
   def evaluate_postfix_expression(self, expression):
+    """
+ Evaluate the postfix expression
+ Arguments:
+ expression: A String which represents the the expression to be evaluated
+ Returns:
+ The result of evaluated postfix expression.
+ """
+ # Write your code here
+ stack = []
+ for i in expression:
+ if i.isnumeric():
+ stack.append(int(i))
+ if len(stack) >= 2:
+ if i == '+':
+ stack[-2] = stack[-2] + stack[-1]
+ stack.pop()
+ elif i == '-':
+ stack[-2] = stack[-2] - stack[-1]
+ stack.pop()
+ elif i == '*':
+ stack[-2] = stack[-2] * stack[-1]
+ stack.pop()
+ elif i == '/':
+ stack[-2] = stack[-2] / stack[-1]
+ stack.pop()
+ elif i == '^':
+ stack[-2] = stack[-2] ^ stack[-1]
+ stack.pop()
+ return int(stack[-1])
+
+# Do not change the following code
+postfix_expression = input() # Read postfix expression
+tokens = postfix_expression.split()
+evaluate = Evaluate(len(tokens))
+if evaluate.validate_postfix_expression(tokens):
+ print(evaluate.evaluate_postfix_expression(tokens))
+else:
+ print('Invalid postfix expression')
